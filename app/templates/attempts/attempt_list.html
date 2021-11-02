@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/attempt_list.css') }}">
+    <meta charset="UTF-8" http-equiv="refresh" content="5" >
+    <title>Title</title>
+
+    <h1>Finished:</h1>
+    <table class="sortable" id="finished_jobs">
+        <tr>
+            <th>Tiefe</th>
+            <th>Score</th>
+            <th>Anzahl der Spiele</th>
+            <th>User</th>
+        </tr>
+        {% for attempt in attempt_list %}
+        <tr onclick="window.location.href='{{ url_for( 'attempt', attempt= attempt[0]) }}';">
+            <td>{{ attempt[4] }}</td>
+            <td>{{ attempt[2] }}</td>
+            <td>{{ attempt[3] }}</td>
+            <td>{{ attempt[1] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h1>RUNNING:</h1>
+
+    <table class="sortable" id="running_jobs">
+        <tr>
+            <th>Fortschritt</th>
+            <th>Score</th>
+            <th>Tiefe</th>
+            <th>Anzahl der Spiele</th>
+            <th>User</th>
+            <th>Läuft ab</th>
+        </tr>
+        {% for attempt in started_attempt_list %}
+        <tr onclick="window.location.href='{{ url_for( 'started_attempt', attempt= attempt[0]) }}';">
+            <td>
+                <div class="w3-light-grey" style="border-style: groove;">
+                  <div class="w3-container w3-green w3-center" style="color: green; background-color: green; width:{{ attempt[4]/attempt[3]*100 }}%">!</div>
+                </div>
+            </td>
+            <td>{{ attempt[5] }}</td>
+            <td>{{ attempt[2] }}</td>
+            <td>{{ attempt[3] }}</td>
+            <td>{{ attempt[1] }}</td>
+            <td>{{ attempt[6] }}</td>
+
+        </tr>
+        {% endfor %}
+    </table>
+
+
+
+</head>
+<body>
+
+</body>
+</html>

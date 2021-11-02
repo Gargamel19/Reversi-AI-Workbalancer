@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/style_topnav.css') }}">
+
+
+<body>
+    <div class="topnav" id="myTopnav">
+        {% if not username %}
+            <a style="float: left;" href="{{ url_for("landing") }}">Landing</a>
+
+            <a style="float: right;" href="{{ url_for("login") }}">Login</a>
+            <a style="float: right;" href="{{ url_for("register") }}">Register</a>
+        {% endif %}
+
+        {% if username %}
+            <a href="{{ url_for("landing") }}">Landing</a>
+
+            <a style="float: right;" href="{{ url_for("logout") }}">Logout</a>
+            <a style="float: right;" href="{{ url_for("home") }}">{{username}}</a>
+       {% endif %}
+    </div>
+</body>
+

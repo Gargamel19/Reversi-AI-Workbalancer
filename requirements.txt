@@ -1,0 +1,4 @@
+flask
+flask_login
+bcrypt
+password_strength

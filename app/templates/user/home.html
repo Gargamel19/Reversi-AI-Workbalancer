@@ -1,0 +1,19 @@
+{% include "topnav.html" %}
+
+<html lang="de">
+<head>
+    <link rel="stylesheet" href="https://rubenwardy.com/lichess_widgets/lichess_widgets.css" />
+    <script src="https://rubenwardy.com/lichess_widgets/lichess_widgets.js"></script>
+    <!-- For the light theme --> <link rel="stylesheet" href="https://rubenwardy.com/lichess_widgets/light.css" />
+    <!-- For the dark theme --> <link rel="stylesheet" href="https://rubenwardy.com/lichess_widgets/dark.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/textpage.css') }}">
+    <title>{{ title }}</title>
+</head>
+<body>
+<div class="user" style="position: absolute; text-align: center; left: 28%">
+    <h1 style="">{{ username }}</h1>
+        <button type="button" class="btn btn-primary btn-large" onclick="window.location.href='{{ url_for( 'my_attempts' ) }}';">My Attempts</button>
+    hash: {{ hash }}
+</div>
+</body>
+</html>
