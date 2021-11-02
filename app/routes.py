@@ -206,7 +206,10 @@ def attempts(depth):
     started_attempts_of_user = database_started_attempts.get_attempts_with_username_from_querry(depth, games_amount, username)
     listed_started_attempts_of_user = []
     for attempt in started_attempts_of_user:
-        listed_started_attempts_of_user.append(list(attempt))
+        attempt_temp = list(attempt)
+        attempt_temp[5] = round(attempt_temp[5], 2)
+        listed_started_attempts_of_user.append(attempt_temp)
+        print(len(attempt_temp))
     return render_template('attempts/attempt_list.html', title="My_Attempts", attempt_list=listed_attempts_of_user,
                            started_attempt_list=listed_started_attempts_of_user)
 
@@ -225,7 +228,11 @@ def my_attempts():
     listed_started_attempts_of_user = []
     if started_attempts_of_user:
         for attempt in started_attempts_of_user:
-            listed_started_attempts_of_user.append(list(attempt))
+            attempt_temp = list(attempt)
+            attempt_temp[5] = round(attempt_temp[5], 2)
+            listed_started_attempts_of_user.append(attempt_temp)
+            attempt_temp.append(round(attempt_temp[4]/attempt_temp[3]*100))
+
 
     return render_template('attempts/attempt_list.html', title="My_Attempts", attempt_list=listed_attempts_of_user, started_attempt_list=listed_started_attempts_of_user)
 
