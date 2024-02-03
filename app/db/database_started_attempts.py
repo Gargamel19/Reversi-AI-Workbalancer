@@ -26,6 +26,12 @@ class database_started_attempts:
             print("Table Exists")
 
     @staticmethod
+    def get_attempts():
+        query = "SELECT attempts_started.ATTEMPT_ID, user.USERNAME, attempts_started.DEPTH, attempts_started.GAMES_AMOUNT, attempts_started.CURRENT_GAME, attempts_started.WINRATE, attempts_started.EXPIRE_DATE FROM attempts_started JOIN User ON attempts_started.USER_ID=user.USER_ID"
+        return DataBase.make_multi_response_query(query, database_started_attempts.path)
+
+
+    @staticmethod
     def get_attempts_of_user(user_id):
         query = "SELECT attempts_started.ATTEMPT_ID, user.USERNAME, attempts_started.DEPTH, attempts_started.GAMES_AMOUNT, attempts_started.CURRENT_GAME, attempts_started.WINRATE, attempts_started.EXPIRE_DATE FROM attempts_started JOIN User ON attempts_started.USER_ID=user.USER_ID WHERE attempts_started.User_ID = {}".format(
             user_id)

@@ -206,6 +206,30 @@ def attempts(depth):
     return render_template('attempts/attempt_list.html', title="My_Attempts", attempt_list=listed_attempts_of_user,
                            started_attempt_list=listed_started_attempts_of_user)
 
+@app.route("/attempts/all")
+@flask_login.login_required
+def my_attempts():
+    delete_expred()
+    user_id = flask_login.current_user.id
+    attempts_of_user = database_attempts.get_attempts()
+    listed_attempts_of_user = []
+    for attempt in attempts_of_user:
+        listed_attempts_of_user.append(list(attempt))
+    listed_attempts_of_user.sort(key=lambda x: x[4], reverse=True)
+
+    started_attempts_of_user = database_started_attempts.get_attempts(user_id)
+    listed_started_attempts_of_user = []
+    if started_attempts_of_user:
+        for attempt in started_attempts_of_user:
+            attempt_temp = list(attempt)
+            attempt_temp[5] = round(attempt_temp[5], 2)
+            listed_started_attempts_of_user.append(attempt_temp)
+            attempt_temp.append(round(attempt_temp[4]/attempt_temp[3]*100))
+
+
+    return render_template('attempts/attempt_list.html', title="Attempts", attempt_list=listed_attempts_of_user, started_attempt_list=listed_started_attempts_of_user)
+
+
 
 @app.route("/attempts/my")
 @flask_login.login_required
