@@ -217,7 +217,7 @@ def all_attempts():
         listed_attempts_of_user.append(list(attempt))
     listed_attempts_of_user.sort(key=lambda x: x[4], reverse=True)
 
-    started_attempts_of_user = database_started_attempts.get_attempts(user_id)
+    started_attempts_of_user = database_started_attempts.get_attempts()
     listed_started_attempts_of_user = []
     if started_attempts_of_user:
         for attempt in started_attempts_of_user:
