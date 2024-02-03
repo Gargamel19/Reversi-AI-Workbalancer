@@ -5,24 +5,6 @@
     <meta charset="UTF-8" http-equiv="refresh" content="5" >
     <title>Title</title>
 
-    <h1>Finished:</h1>
-    <table class="sortable" id="finished_jobs">
-        <tr>
-            <th>Tiefe</th>
-            <th>Score</th>
-            <th>Anzahl der Spiele</th>
-            <th>User</th>
-        </tr>
-        {% for attempt in attempt_list %}
-        <tr onclick="window.location.href='{{ url_for( 'attempt', attempt= attempt[0]) }}';">
-            <td>{{ attempt[4] }}</td>
-            <td>{{ attempt[2] }}</td>
-            <td>{{ attempt[3] }}</td>
-            <td>{{ attempt[1] }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-
     <h1>RUNNING:</h1>
 
     <table class="sortable" id="running_jobs">
@@ -51,6 +33,29 @@
         {% endfor %}
     </table>
 
+    <h1>Finished:</h1>
+
+    <table class="sortable" id="finished_jobs">
+        <tr>
+            <th>Generation</th>
+            <th>Score</th>
+            <th>Tiefe</th>
+            <th>Anzahl der Spiele</th>
+            <th>User</th>
+            <th>Abgebrochen in Spiel</th>
+
+        </tr>
+        {% for attempt in attempt_list %}
+        <tr onclick="window.location.href='{{ url_for( 'attempt', attempt= attempt[0]) }}';">
+            <td>{{ attempt[6] }}</td>
+            <td>{{ attempt[4] }}</td>
+            <td>{{ attempt[2] }}</td>
+            <td>{{ attempt[3] }}</td>
+            <td>{{ attempt[1] }}</td>
+            <td>{{ attempt[5] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 
 
 </head>

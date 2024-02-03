@@ -171,19 +171,11 @@ def change_password_put():
     return redirect(url_for('home'))
 
 
-
-
-
-
-
-
 def delete_expred():
     exploieded = database_started_attempts.get_expired()
     if exploieded:
         for attempt in exploieded:
             database_started_attempts.delete_attempt_by_id(list(attempt)[0])
-
-
 
 
 @app.route("/attempt/<attempt>")
@@ -202,6 +194,7 @@ def attempts(depth):
     listed_attempts_of_user = []
     for attempt in attempts_of_user:
         listed_attempts_of_user.append(list(attempt))
+    listed_attempts_of_user.sort(key=lambda x: x[4], reverse=True)
 
     started_attempts_of_user = database_started_attempts.get_attempts_with_username_from_querry(depth, games_amount, username)
     listed_started_attempts_of_user = []
@@ -223,6 +216,7 @@ def my_attempts():
     listed_attempts_of_user = []
     for attempt in attempts_of_user:
         listed_attempts_of_user.append(list(attempt))
+    listed_attempts_of_user.sort(key=lambda x: x[4], reverse=True)
 
     started_attempts_of_user = database_started_attempts.get_attempts_of_user(user_id)
     listed_started_attempts_of_user = []
@@ -263,11 +257,13 @@ def get_attempt():
             if not database_started_attempts.get_attemps_with_matrix_depth_gameAmount(matrix, depth_int, games_amount):
                 unique = True
     attempt_id = database_started_attempts.insert_attempt(user_db_connector.get_user_id_by_hash(user_hash), depth_int, games_amount, matrix)
-    print()
+    gen = database_attempts.get_max_gen_from_ammount_and_depths(depth_int, games_amount)
+    if not gen:
+        gen = 0
     best_wr = 0
     if len(listes_attempts) > 0:
         best_wr = listes_attempts[0][5]
-    returning = {"attempt_id": attempt_id, "mutated": matrix, "tiefe": depth_int, "games": games_amount, "staticmatrix": start_mat, "current_game": 0, "best_winrate": best_wr, "winrate": 0.0, "genericColor": "Black"}
+    returning = {"gen": int(gen)+1, "attempt_id": attempt_id, "mutated": matrix, "tiefe": depth_int, "games": games_amount, "staticmatrix": start_mat, "current_game": 0, "best_winrate": best_wr, "winrate": 0.0, "genericColor": "Black"}
     return json.dumps(returning)
 
 
@@ -303,8 +299,8 @@ def finished_attempt(started_id):
     database_started_attempts.delete_attempt_by_id(started_attempt_id)
     if user_id == data[1] and user_id:
         depth = data[2]
-        games_amount = data[3]
-        matrix = json.loads(data[5])
+        games_amount = data[5]
+        matrix = json.loads(data[7])
         return database_attempts.insert_attempt(user_id, depth, games_amount, score, aborted_game, matrix, games_json)
     else:
         return 'no hash', 400

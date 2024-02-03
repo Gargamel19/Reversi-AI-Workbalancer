@@ -29,7 +29,7 @@ class database_attempts:
 
     @staticmethod
     def get_attempts_with_username_from_querry(depth_int, games_amount, username):
-        query = "SELECT attempts.ATTEMPT_ID, user.USERNAME, attempts.DEPTH, attempts.GAMES_AMOUNT, attempts.SCORE FROM attempts JOIN User ON attempts.USER_ID=user.USER_ID"
+        query = "SELECT attempts.ATTEMPT_ID, user.USERNAME, attempts.DEPTH, attempts.GAMES_AMOUNT, attempts.SCORE, attempts.ABORTED_IN_GAME, attempts.GENERATION FROM attempts JOIN User ON attempts.USER_ID=user.USER_ID"
         added = 0
         if depth_int:
             if not added == 0:
@@ -72,7 +72,7 @@ class database_attempts:
 
     @staticmethod
     def get_attempts_of_user(user_id):
-        query = "SELECT attempts.ATTEMPT_ID, user.USERNAME, attempts.DEPTH, attempts.GAMES_AMOUNT, attempts.SCORE FROM attempts JOIN User ON attempts.USER_ID=user.USER_ID WHERE attempts.User_ID = {}".format(user_id)
+        query = "SELECT attempts.ATTEMPT_ID, user.USERNAME, attempts.DEPTH, attempts.GAMES_AMOUNT, attempts.SCORE, attempts.ABORTED_IN_GAME, attempts.GENERATION FROM attempts JOIN User ON attempts.USER_ID=user.USER_ID WHERE attempts.User_ID = {}".format(user_id)
         return DataBase.make_multi_response_query(query, database_attempts.path)
 
     @staticmethod
