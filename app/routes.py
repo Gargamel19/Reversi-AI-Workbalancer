@@ -208,7 +208,7 @@ def attempts(depth):
 
 @app.route("/attempts/all")
 @flask_login.login_required
-def my_attempts():
+def all_attempts():
     delete_expred()
     user_id = flask_login.current_user.id
     attempts_of_user = database_attempts.get_attempts()
