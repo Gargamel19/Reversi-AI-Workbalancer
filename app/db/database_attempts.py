@@ -71,7 +71,7 @@ class database_attempts:
         return DataBase.make_multi_response_query(query, database_attempts.path)
 
     @staticmethod
-    def get_attempts(user_id):
+    def get_attempts():
         query = "SELECT attempts.ATTEMPT_ID, user.USERNAME, attempts.DEPTH, attempts.GAMES_AMOUNT, attempts.SCORE, attempts.ABORTED_IN_GAME, attempts.GENERATION FROM attempts JOIN User ON attempts.USER_ID=user.USER_ID"
         return DataBase.make_multi_response_query(query, database_attempts.path)
 
