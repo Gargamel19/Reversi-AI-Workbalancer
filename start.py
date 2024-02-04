@@ -1,2 +1,2 @@
 from app import app
-app.run(host="192.168.2.106")
+app.run(host="85.215.34.205")
