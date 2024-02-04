@@ -6,7 +6,6 @@ class DataBase:
 
     @staticmethod
     def make_no_response_query(sql, database_url):
-        print(database_url)
         connection = sqlite3.connect(database_url)
         cursor = connection.cursor()
         cursor.execute(sql)
