@@ -210,11 +210,18 @@ def attempts(depth):
 @flask_login.login_required
 def all_attempts():
     delete_expred()
-    user_id = flask_login.current_user.id
     attempts_of_user = database_attempts.get_attempts()
     listed_attempts_of_user = []
+    char_attempts_scores = []
+    char_attempts_trys = []
     for attempt in attempts_of_user:
         listed_attempts_of_user.append(list(attempt))
+        print(attempt)
+        if len(char_attempts_scores) == 0:
+            char_attempts_scores.append(list(attempt)[4])
+        else:
+            char_attempts_scores.append(max(list(attempt)[4], char_attempts_scores[-1]))
+        char_attempts_trys.append(len(char_attempts_scores))
     listed_attempts_of_user.sort(key=lambda x: x[4], reverse=True)
 
     started_attempts_of_user = database_started_attempts.get_attempts()
@@ -227,7 +234,7 @@ def all_attempts():
             attempt_temp.append(round(attempt_temp[4]/attempt_temp[3]*100))
 
 
-    return render_template('attempts/attempt_list.html', title="Attempts", attempt_list=listed_attempts_of_user, started_attempt_list=listed_started_attempts_of_user)
+    return render_template('attempts/attempt_list.html', title="Attempts", attempt_list=listed_attempts_of_user, started_attempt_list=listed_started_attempts_of_user, char_attempts_scores=char_attempts_scores, char_attempts_trys=char_attempts_trys)
 
 
 
