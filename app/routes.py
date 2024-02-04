@@ -216,7 +216,6 @@ def all_attempts():
     char_attempts_trys = []
     for attempt in attempts_of_user:
         listed_attempts_of_user.append(list(attempt))
-        print(attempt)
         if len(char_attempts_scores) == 0:
             char_attempts_scores.append(list(attempt)[4])
         else:
