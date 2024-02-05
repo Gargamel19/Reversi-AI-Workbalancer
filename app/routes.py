@@ -337,5 +337,6 @@ def finished_attempt(started_id):
 
 @app.route('/best_mat/<depth>', methods=['GET'])
 def best_mat(depth):
-    returning = database_attempts.get_best_attemps_with_depth(depth)
+    temp_json = database_attempts.get_best_attemps_with_depth(depth)[0]
+    returning = {"matrix": json.loads(temp_json[8]), "best_winrate": temp_json[5]}
     return json.dumps(returning)
