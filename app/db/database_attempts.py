@@ -59,6 +59,11 @@ class database_attempts:
     def get_attemps_with_depth(depth):
         query = "SELECT * FROM attempts WHERE DEPTH = " + str(depth)
         return DataBase.make_multi_response_query(query, database_attempts.path)
+    
+    @staticmethod
+    def get_best_attemps_with_depth(depth):
+        query = "SELECT * FROM attempts WHERE DEPTH = {} ORDER BY attempts.SCORE DESC LIMIT 1".format(depth)
+        return DataBase.make_multi_response_query(query, database_attempts.path)
 
     @staticmethod
     def get_attemps_with_depth_amount(depth, amount):

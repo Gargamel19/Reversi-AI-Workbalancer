@@ -335,3 +335,7 @@ def finished_attempt(started_id):
     else:
         return 'no hash', 400
 
+@app.route('/best_mat/<depth>', methods=['GET'])
+def best_mat(depth):
+    returning = database_attempts.get_best_attemps_with_depth(depth)
+    return json.dumps(returning)
