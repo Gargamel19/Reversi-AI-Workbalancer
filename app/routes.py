@@ -275,7 +275,7 @@ def get_attempt():
         listes_attempts.append(list(attempt))
     listes_attempts.sort(key=lambda x: x[5], reverse=True)
     if len(listes_attempts) == 0:
-        matrix = start_mat
+        matrix = start_mat.copy()
     else:
         matrix = json.loads(listes_attempts[0][8])
     unique = False
