@@ -1,8 +1,8 @@
 import random
-
+import copy
 
 def mutate(rate, matrix):
-    new_matrix = matrix.copy()
+    new_matrix = copy.deepcopy(matrix)
     for x in range(len(new_matrix)):
         for y in range(len(new_matrix[x])):
             rand = random.randint(0, 10000)
@@ -14,7 +14,7 @@ def mutate(rate, matrix):
 
 
 def crossover(rate, matrix1, matrix2):
-    new_matrix = matrix1.copy()
+    new_matrix = copy.deepcopy(matrix1)
     count = 0
     for x in range(len(new_matrix)):
         for y in range(len(new_matrix[x])):

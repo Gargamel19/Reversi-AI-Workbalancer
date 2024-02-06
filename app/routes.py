@@ -3,6 +3,7 @@ import json
 import sqlite3
 import string
 import random
+import copy
 
 import bcrypt
 import flask_login
@@ -275,7 +276,7 @@ def get_attempt():
         listes_attempts.append(list(attempt))
     listes_attempts.sort(key=lambda x: x[5], reverse=True)
     if len(listes_attempts) == 0:
-        matrix = start_mat.copy()
+        matrix = copy.deepcopy(start_mat)
     else:
         matrix = json.loads(listes_attempts[0][8])
     unique = False
@@ -293,7 +294,7 @@ def get_attempt():
     best_wr = 0
     if len(listes_attempts) > 0:
         best_wr = listes_attempts[0][5]
-    returning = {"gen": int(gen)+1, "attempt_id": attempt_id, "mutated": matrix, "tiefe": depth_int, "games": games_amount, "staticmatrix": start_mat, "current_game": 0, "best_winrate": best_wr, "winrate": 0.0, "genericColor": "Black"}
+    returning = {"gen": int(gen)+1, "attempt_id": attempt_id, "mutated": matrix, "tiefe": depth_int, "games": games_amount, "staticmatrix": copy.deepcopy(start_mat), "current_game": 0, "best_winrate": best_wr, "winrate": 0.0, "genericColor": "Black"}
     return json.dumps(returning)
 
 
